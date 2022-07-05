@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rx_notifier/rx_notifier.dart';
 import 'dart:math' as math;
 
-import 'homeController.dart';
+import 'viewmodels/home_viewmodel.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -12,7 +13,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final controller = HomeController(); ///faz o gerenciamento de estado
+  final controller = HomeViewModel(); ///faz o gerenciamento de estado
+  String result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 10,
             ),
-            AnimatedBuilder(
-                animation: controller,
-                builder: (context, child){
-                  return Text(controller.result);
-                }),
+            RxBuilder(
+              builder: (_) => Text(controller.result),
+      ),
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
